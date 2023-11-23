@@ -4,6 +4,8 @@
 class Store {
   constructor(initState = {}) {
     this.state = initState;
+    this.state.maxItemIndex = initState.list.length;
+    this.state.selectionNumber = 0;
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -44,7 +46,8 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.state.maxItemIndex+1, title: 'Новая запись'}],
+      maxItemIndex: this.state.maxItemIndex+1
     })
   };
 
@@ -64,15 +67,19 @@ class Store {
    * @param code
    */
   selectItem(code) {
+    //console.log(this.state);
     this.setState({
       ...this.state,
+      selectionNumber: (!this.state.list.find(item=>item.code===code).selected)?this.state.selectionNumber+1:this.state.selectionNumber,
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
         }
+        else item.selected = false;
         return item;
-      })
+      }),
     })
+    //console.log(this.state);
   }
 }
 
