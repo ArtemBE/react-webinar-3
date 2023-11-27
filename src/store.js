@@ -5,7 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.state.maxItemIndex = initState.list.length;
-    this.state.selectionNumber = 0;
+    this.state.clicks = new Map();
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -67,10 +67,9 @@ class Store {
    * @param code
    */
   selectItem(code) {
-    //console.log(this.state);
+    if(!this.state.list.find(item=>item.code===code).selected) this.state.clicks.set(code, this.state.clicks.has(code)?this.state.clicks.get(code)+1:1);
     this.setState({
       ...this.state,
-      selectionNumber: (!this.state.list.find(item=>item.code===code).selected)?this.state.selectionNumber+1:this.state.selectionNumber,
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
@@ -79,7 +78,6 @@ class Store {
         return item;
       }),
     })
-    //console.log(this.state);
   }
 }
 
