@@ -1,19 +1,16 @@
-import React, { useCallback, useState } from "react";
+import React from "react";
 import PropTypes from 'prop-types';
 import Item from "../item";
 import './style.css';
 
-function List({list, onDelete, onSelectItem, onAddToBasket, setSumPrice, inBasket, onClose}) {
+function List({list, onDeleteItem, onSelectItem, onAddToBasket, setSumPrice}) {
   return (
     <div className='List'>{
-      list
-      .filter(item=>!inBasket||item.countInBasket>0)
-      .map(item =>
+      list.map(item =>
         <div key={item.code} className='List-item'>
-          <Item item={item} inBasket={inBasket} onDelete={onDelete} onSelect={onSelectItem} onAddToBasket={onAddToBasket} setSumPrice={setSumPrice}/>
+          <Item item={item} onDelete={onDeleteItem} onSelect={onSelectItem} onAddToBasket={onAddToBasket} setSumPrice={setSumPrice}/>
         </div>
-      )
-      }
+      )}
     </div>
   )
 }

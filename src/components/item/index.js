@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import PropTypes from "prop-types";
 import {plural} from "../../utils";
 import './style.css';
+import { formatPrice } from "../../utils";
 
 function Item(props) {
 
@@ -18,7 +19,12 @@ function Item(props) {
     onDelete: (e) => {
       e.stopPropagation();
       props.onDelete(props.item.code);
-
+      console.log("deleted");
+    },
+    onAddToBasket: (e) => {
+      props.setSumPrice.setSum(props.setSumPrice.sum+1);
+      props.setSumPrice.setPrice(props.setSumPrice.price+props.item.price);
+      props.onAddToBasket(props.item.code);
     }
   }
 
@@ -27,22 +33,24 @@ function Item(props) {
          onClick={callbacks.onClick}>
       <div className='Item-code'>{props.item.code}</div>
       <div className='Item-title'>
-        {props.item.title} {count ? ` | Выделяли ${count} ${plural(count, {
+        {props.item.title} {/* {count ? ` | Выделяли ${count} ${plural(count, {
         one: 'раз',
         few: 'раза',
         many: 'раз'
-      })}` : ''}
+      })}` : ''} */}
       </div>
       <div className='Item-actions'>
-        <button onClick={callbacks.onDelete}>
-          Удалить
+        <span className="Item-price">{formatPrice(props.item.price)}₽</span>
+        {props.inBasket && <span className="countItemInBasket">{props.item.countInBasket + " шт"}</span>}
+        <button onClick={props.inBasket?callbacks.onDelete:callbacks.onAddToBasket}>
+          {props.inBasket?'Удалить':'Добавить'}
         </button>
       </div>
     </div>
   );
 }
 
-Item.propTypes = {
+/* Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
@@ -58,6 +66,6 @@ Item.defaultProps = {
   },
   onSelect: () => {
   },
-}
+} */
 
 export default React.memo(Item);

@@ -50,3 +50,14 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+export function formatPrice(number) {
+  const numString = number.toString();
+  
+  const groups = [];
+  for (let i = numString.length; i > 0; i -= 3) {
+    groups.unshift(numString.slice(Math.max(0, i - 3), i));
+  }
+  const formattedNumber = groups.join(' ');
+  return formattedNumber;
+}

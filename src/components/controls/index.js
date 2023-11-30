@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from 'prop-types';
 import './style.css';
+import { formatPrice } from "../../utils";
 
-function Controls({onAdd}) {
+function Controls({onOpen, setSumPrice}) {
   return (
     <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+      <span className="inBasketLabel">В корзине: </span>
+      <strong className="countOfItems">{setSumPrice.sum===0?"Пусто":formatPrice(setSumPrice.sum)+" товара / "+formatPrice(setSumPrice.price)+" ₽"}</strong>
+      <button onClick={() => onOpen()}>Перейти</button>
     </div>
   )
 }

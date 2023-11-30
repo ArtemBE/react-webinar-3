@@ -67,7 +67,7 @@ class Store {
    * @param code
    */
   selectItem(code) {
-    this.setState({
+    /* this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
@@ -81,7 +81,25 @@ class Store {
         // Сброс выделения если выделена
         return item.selected ? {...item, selected: false} : item;
       })
-    })
+    }) */
+  }
+  addToBasket(code){
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item=>{
+        if(item.code===code) return {...item, countInBasket: item.countInBasket+1||1}
+        return item;
+      })
+    });
+  }
+  deleteFromBasket(code){
+    this.setState({
+      ...this.state,
+      list: this.state.list.map(item=>{
+        if(item.code===code) return console.log(item.countInBasket+" sssss") || {...item, countInBasket: 0}
+        return item;
+      })
+    });
   }
 }
 

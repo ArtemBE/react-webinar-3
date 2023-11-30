@@ -3,3 +3,9 @@
   justify-content: flex-end;
   padding: 20px;
 }
+.inBasketLabel{
+  margin-right: 15px;
+}
+.countOfItems{
+  margin-right: 20px;
+}
