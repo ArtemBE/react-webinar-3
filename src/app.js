@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
@@ -11,6 +11,7 @@ import Basket from './components/basket';
  * @returns {React.ReactElement}
  */
 function App({store}) {
+  
   const [sum, setSum] = useState(0);
   const [price, setPrice] = useState(0);
   const [opened, setOpened] = useState(false);
@@ -19,10 +20,11 @@ function App({store}) {
     setSum, setPrice, sum, price
   }
   const list = store.getState().list;
-
+  useEffect(()=>{
+    console.log("Произошел ререндеринг и сумма равняется "+setSumPrice.sum);
+  });
   const callbacks = {
     onDelete: useCallback((code) => {
-      //setSum(setSumPrice.sum-store.getState().list.find(item=>item.code===code).countInBasket);
       store.deleteFromBasket(code);
     }, [store]),
 
