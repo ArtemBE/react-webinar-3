@@ -19,13 +19,13 @@ function Item(props) {
     onDelete: (e) => {
       e.stopPropagation();
       console.log("Сумма до: " + props.setSumPrice.sum);
-      props.setSumPrice.setSum(props.setSumPrice.sum-props.item.countInBasket);
+      props.setSumPrice.setSum(props.setSumPrice.sum-1);
       props.setSumPrice.setPrice(props.setSumPrice.price-props.item.countInBasket*props.item.price);
       props.onDelete(props.item.code);
       console.log("deleted");
     },
     onAddToBasket: (e) => {
-      props.setSumPrice.setSum(props.setSumPrice.sum+1);
+      if(!props.item.countInBasket>0) props.setSumPrice.setSum(props.setSumPrice.sum+1);
       props.setSumPrice.setPrice(props.setSumPrice.price+props.item.price);
       props.onAddToBasket(props.item.code);
       console.log(props.setSumPrice);

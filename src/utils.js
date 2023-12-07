@@ -61,3 +61,10 @@ export function formatPrice(number) {
   const formattedNumber = groups.join(' ');
   return formattedNumber;
 }
+
+export function pluralize(n){
+  if (n%100>10 && n%100<20) return 'ов';
+  if (n%10===0 || n%10>4) return 'ов';
+  if (n%10===1) return '';
+  return 'а';
+}
